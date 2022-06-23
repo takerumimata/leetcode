@@ -37,7 +37,7 @@ class Solution:
                 else:
                     return False
             else:
-                # illegal charactor
+                # illegal character
                 return False
         if len(stack) == 0:
             return True
