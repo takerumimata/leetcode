@@ -9,8 +9,11 @@ class Solution:
         mid = int(list_length / 2)
         left = 0
         right = list_length
+
+        if(nums[0] == target):
+            return 0
+
         while(right - left != 1):
-            # print(right - left)
             if(nums[mid] == target):
                 return mid
             elif(nums[mid] > target):
