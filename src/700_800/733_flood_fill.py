@@ -7,39 +7,65 @@ class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         """再帰を利用することで解く
         """
+        def fill(image, sr, sc, prev, color):
+            print(sr)
+            print(sc)
+            if (sr >= 1):
+                if(image[sr - 1][sc] == prev and image[sr - 1][sc] != color):
+                    image[sr - 1][sc] = color
+                    return fill(image, sr - 1, sc, prev, color)
+            if (sr < m - 1):
+                if(image[sr + 1][sc] == prev and image[sr + 1][sc] != color):
+                    image[sr + 1][sc] = color
+                    return fill(image, sr + 1, sc, prev, color)
+            if (sc >= 1):
+                if(image[sr][sc - 1] == prev and image[sr][sc - 1] != color):
+                    image[sr][sc - 1] = color
+                    return fill(image, sr, sc - 1, prev, color)
+            if (sc < n - 1):
+                if(image[sr][sc + 1] == prev and image[sr][sc + 1] != color):
+                    image[sr][sc + 1] = color
+                    return fill(image, sr, sc + 1, prev, color)
+
         # 隣が自身の前の色と同じ色ならそこを起点にしてまた塗り替えていく
         m = len(image)
         n = len(image[0])
         prev = image[sr][sc]
         image[sr][sc] = color
-        # 既に塗られてるとこもチェックしてそうなので、いい感じにまとめる
-        if (sr >= 1):
-            if(image[sr - 1][sc] == prev):
-                self.floodFill(image, sr - 1, sc, color)
-        if (sr < m - 1):
-            if(image[sr + 1][sc] == prev):
-                self.floodFill(image, sr + 1, sc, color)
-        if (sc >= 1):
-            if(image[sr][sc - 1] == prev):
-                self.floodFill(image, sr, sc - 1, color)
-        if (sc < n - 1):
-            if(image[sr][sc + 1] == prev):
-                self.floodFill(image, sr, sc + 1, color)
+        fill(image=image, sr=sr, sc=sc, prev=prev, color=color)
+
         return image
 
-        # def fill(image, sr, sc, prev, color):
-        #     if (sr >= 1):
-        #         if(image[sr - 1][sc] == prev):
-        #             return self.floodFill(image, sr - 1, sc, color)
-        #     if (sr < m - 1):
-        #         if(image[sr + 1][sc] == prev):
-        #             return self.floodFill(image, sr + 1, sc, color)
-        #     if (sc >= 1):
-        #         if(image[sr][sc - 1] == prev):
-        #             return self.floodFill(image, sr, sc - 1, color)
-        #     if (sc < n - 1):
-        #         if(image[sr][sc + 1] == prev):
-        #             return self.floodFill(image, sr, sc + 1, color)
+
+class Solution2:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        """
+        ①再帰を利用することで解く
+        -> アルゴリズム自体は問題ないが、recursionのしすぎで怒られる
+        ②再帰をloopで書く
+        """
+        sys.setrecursionlimit(1000000)
+        # 隣が自身の前の色と同じ色ならそこを起点にしてまた塗り替えていく
+        m = len(image)
+        n = len(image[0])
+        prev = image[sr][sc]
+        image[sr][sc] = color
+        cur_sr = sr
+        cur_sc = sc
+
+        if (sr >= 1):
+            if(image[sr - 1][sc] == prev and image[sr - 1][sc] != color):
+                self.floodFill(image, sr - 1, sc, color)
+        if (sr < m - 1):
+            if(image[sr + 1][sc] == prev and image[sr + 1][sc] != color):
+                self.floodFill(image, sr + 1, sc, color)
+        if (sc >= 1):
+            if(image[sr][sc - 1] == prev and image[sr][sc - 1] != color):
+                self.floodFill(image, sr, sc - 1, color)
+        if (sc < n - 1):
+            if(image[sr][sc + 1] == prev and image[sr][sc + 1] != color):
+                self.floodFill(image, sr, sc + 1, color)
+        return image
 
 
 if __name__ == "__main__":
