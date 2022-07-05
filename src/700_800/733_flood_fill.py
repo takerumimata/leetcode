@@ -41,10 +41,8 @@ class Solution2:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         """
         ①再帰を利用することで解く
-        -> アルゴリズム自体は問題ないが、recursionのしすぎで怒られる
-        ②再帰をloopで書く
+        単純に探索したところを再探索していたのでダメだった。修正済み
         """
-        sys.setrecursionlimit(1000000)
         # 隣が自身の前の色と同じ色ならそこを起点にしてまた塗り替えていく
         m = len(image)
         n = len(image[0])
