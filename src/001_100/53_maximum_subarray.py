@@ -15,18 +15,27 @@ class Solution:
         head = 0
 
         for i in range(0, len(nums)):
-            if(nums[i] < 0):
-                continue
-            else:
-                if(sum(nums[head:i+1]) > max and sum(nums[head:i+1]) > nums[i]):
-                    # print(nums[head:i+1])
-                    max = sum(nums[head:i+1])
-                elif(nums[i] > max and nums[i] > sum(nums[head:i+1])):
-                    head = i
-                    max = nums[i]
-                elif(max > nums[i] and max > sum(nums[head:i+1])):
-                    pass
+            if(sum(nums[head:i+1]) > max and sum(nums[head:i+1]) > nums[i]):
+                # print(nums[head:i+1])
+                max = sum(nums[head:i+1])
+            elif(nums[i] > max and nums[i] > sum(nums[head:i+1])):
+                head = i
+                max = nums[i]
+            elif(max > nums[i] and max > sum(nums[head:i+1])):
+                pass
         return max
+
+    def maxSubArray2(self, nums: List[int]) -> int:
+        """
+        Kadane's algorithm
+        """
+        dp = [0 for _ in range(len(nums))]
+        dp[0] = nums[0]
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i-1]+nums[i], nums[i])
+
+        print(dp)
+        return max(dp)
 
 
 if __name__ == "__main__":
@@ -37,3 +46,7 @@ if __name__ == "__main__":
     nums = [5, 4, -1, 7, 8]
     sol = Solution()
     print(sol.maxSubArray(nums=nums))
+
+    nums = [8, -19, 5, -4, 20]
+    sol = Solution()
+    print(sol.maxSubArray2(nums=nums))  # expect 21
