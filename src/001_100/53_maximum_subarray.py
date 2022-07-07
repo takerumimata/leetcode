@@ -28,6 +28,7 @@ class Solution:
     def maxSubArray2(self, nums: List[int]) -> int:
         """
         Kadane's algorithm
+        任意の要素からn番目の要素までの和と、n番目そのもの比較
         """
         dp = [0 for _ in range(len(nums))]
         dp[0] = nums[0]
