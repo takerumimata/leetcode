@@ -6,7 +6,7 @@
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        """配列の数をカウントする
+        """hashに探索したnodeを保存しておき、既知がどうか検査
         """
         hash_table = {}
 
