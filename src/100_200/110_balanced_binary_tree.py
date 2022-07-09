@@ -1,4 +1,3 @@
-from inspect import stack
 from typing import Optional
 # Definition for a binary tree node.
 
